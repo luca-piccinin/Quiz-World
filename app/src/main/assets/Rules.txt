@@ -1,0 +1,7 @@
+First you need to choose the language that will affect the entire app.
+After that you have to enter your username which will be used to see the result.
+Once you press the next button you can go to choose the topic on which the quiz will be made.
+Once the topic has been chosen, the quiz will begin.
+It will show one question at a time, after which you can write your own answer.
+After that, just hit the send button to go to the next question.
+At the conclusion of the questions you will be sent to the activity that will show the results.

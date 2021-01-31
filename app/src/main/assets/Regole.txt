@@ -1,0 +1,7 @@
+Per prima cosa bisogna scegliere la lingua che andrà a incidere sull'intera app.
+Dopodichè bisogna inserire il proprio nome utente che verrà utilizzato per vedere il risultato.
+Una volta premuto il successivo bottone si potrà andare a scegliere l'argomento sul quale verrà fatto il quiz.
+Una volta scelto l'argomento si procederà con l'inizio del quiz.
+Verrà mostrata una domanda alla volta, dopodichè si potrà scrivere la propria risposta.
+Dopo ciò basterà premere il pulsante invio per passare alla domanda successiva.
+Alla conclusione delle domande si verrà mandati all'activity che mostrerà i risultati.

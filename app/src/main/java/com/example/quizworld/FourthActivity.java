@@ -52,12 +52,12 @@ public class FourthActivity extends AppCompatActivity {
 
         if(flag) {
             titolo.setText("Score");
-            Classifica.setText("Ranking");
+            Classifica.setText("Score");
             classifica.setText("User: " + utente + "\n" + "Argument: " + argomento + "\n" + "Question: " + totali + "\n" + "Correct: " + correct + "\n\n");
         }
         else {
             titolo.setText("Risultato");
-            Classifica.setText("Classifica");
+            Classifica.setText("Risultato");
             classifica.setText("Utente: " + utente + "\n" + "Argomento: " + argomento + "\n" + "Domande: " + totali + "\n" + "Corrette: " + correct + "\n\n");
         }
 
@@ -67,10 +67,10 @@ public class FourthActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!back) {
                     if (flag) {
-                        titolo.setText("Ranking");
+                        //titolo.setText("Ranking");
                         Classifica.setText("Return to Hub");
                     } else {
-                        titolo.setText("Risultati");
+                        //titolo.setText("Risultati");
                         Classifica.setText("Ritorna alla pagina iniziale");
                     }
                     //classifica.setText(leggiFile());

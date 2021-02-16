@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 public class FourthActivity extends AppCompatActivity {
     private String utente;
@@ -46,6 +47,14 @@ public class FourthActivity extends AppCompatActivity {
         if(t.hasExtra("Corrette"))
             correct = getIntent().getIntExtra("Corrette",0);
 
+        MySQLite db = new MySQLite(this);
+
+        // add Books
+        if(!flag)
+            db.addResult(new Risultati(utente,"Italiano",argomento,totali,correct));
+        else
+            db.addResult(new Risultati(utente,"Inglese",argomento,totali,correct));
+
         TextView titolo = (TextView) findViewById (R.id.viewTitle);
         TextView classifica = (TextView) findViewById(R.id.viewClassifica);
         Button Classifica = (Button) findViewById(R.id.btnClassifica);
@@ -67,10 +76,14 @@ public class FourthActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!back) {
                     if (flag) {
-                        //titolo.setText("Ranking");
+                        titolo.setText("Ranking");
+                        for(int i = 0; i < db.getAllBooks().size(); i++)
+                            classifica.setText(StampaRisultati(db.getAllBooks(),flag,i));
                         Classifica.setText("Return to Hub");
                     } else {
-                        //titolo.setText("Risultati");
+                        titolo.setText("Risultati");
+                        for(int i = 0; i < db.getAllBooks().size(); i++)
+                            classifica.setText(StampaRisultati(db.getAllBooks(),flag,i));
                         Classifica.setText("Ritorna alla pagina iniziale");
                     }
                     //classifica.setText(leggiFile());
@@ -82,6 +95,14 @@ public class FourthActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public String StampaRisultati (List<Risultati> list,boolean flag, int i) {
+        Risultati aux = list.get(i);
+        if (flag)
+            return "User: " + aux.getUtente() + "\n" + "Argument: " + aux.getArgomento() + "Lenguage: " + aux.getLingua() + "\n" + "Question: " + aux.getTotali() + "\n" + "Correct: " + aux.getCorrette() + "\n\n";
+        else
+            return "Utente: " + aux.getUtente() + "\n" + "Argomento: " + aux.getArgomento() + "Lingua: " + aux.getLingua() + "\n" + "Domande: " + aux.getTotali() + "\n" + "Corrette: " + aux.getCorrette() + "\n\n";
     }
 
     public void onBackPressed() {
@@ -111,47 +132,4 @@ public class FourthActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-    /*public String leggiFile() {
-
-        scriviFile();
-
-        BufferedReader reader = null;
-        String line = "";
-        String u,a,c,t;
-        try {
-            reader = new BufferedReader(new InputStreamReader(getAssets().open("Classifica.txt"), "UTF-8"));
-            while ((u = reader.readLine()) != null) {
-                a = reader.readLine();
-                c = reader.readLine();
-                t = reader.readLine();
-                line += "\n" + "Utente: " + u + "\n" + "Argomento: " + a + "\n" + "Domande Totali: " + t + "\n" + "Corrette: " + c;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return line;
-    }
-
-    public void scriviFile() {
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(this.openFileOutput("Classifica.txt", Context.MODE_APPEND));
-            osw.write(utente);
-            osw.write(argomento);
-            osw.write(correct);
-            osw.write(totali);
-            osw.flush();
-            osw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 }

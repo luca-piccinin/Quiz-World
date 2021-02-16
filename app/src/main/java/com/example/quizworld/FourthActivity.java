@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +30,8 @@ public class FourthActivity extends AppCompatActivity {
     private int correct;
     private boolean back = false;
 
-    @SuppressLint("SetTextI18n")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint({"SetTextI18n", "WrongConstant"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,7 @@ public class FourthActivity extends AppCompatActivity {
         TextView titolo = (TextView) findViewById (R.id.viewTitle);
         TextView classifica = (TextView) findViewById(R.id.viewClassifica);
         Button Classifica = (Button) findViewById(R.id.btnClassifica);
+        classifica.setTextSize(30);
 
         if(flag) {
             titolo.setText("Score");
@@ -75,18 +79,19 @@ public class FourthActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!back) {
+                    classifica.setText("");
+                    classifica.setTextSize(16);
                     if (flag) {
                         titolo.setText("Ranking");
                         for(int i = 0; i < db.getAllBooks().size(); i++)
-                            classifica.setText(StampaRisultati(db.getAllBooks(),flag,i));
+                            classifica.setText(classifica.getText() + StampaRisultati(db.getAllBooks(),flag,i));
                         Classifica.setText("Return to Hub");
                     } else {
                         titolo.setText("Risultati");
                         for(int i = 0; i < db.getAllBooks().size(); i++)
-                            classifica.setText(StampaRisultati(db.getAllBooks(),flag,i));
+                            classifica.setText(classifica.getText() + StampaRisultati(db.getAllBooks(),flag,i));
                         Classifica.setText("Ritorna alla pagina iniziale");
                     }
-                    //classifica.setText(leggiFile());
                     back = true;
                 }
                 else {
@@ -100,9 +105,9 @@ public class FourthActivity extends AppCompatActivity {
     public String StampaRisultati (List<Risultati> list,boolean flag, int i) {
         Risultati aux = list.get(i);
         if (flag)
-            return "User: " + aux.getUtente() + "\n" + "Argument: " + aux.getArgomento() + "Lenguage: " + aux.getLingua() + "\n" + "Question: " + aux.getTotali() + "\n" + "Correct: " + aux.getCorrette() + "\n\n";
+            return "User: " + aux.getUtente() + "\n" + "Argument: " + aux.getArgomento() + "\n" + "Lenguage: " + aux.getLingua() + "\n" + "Question: " + aux.getTotali() + "\n" + "Correct: " + aux.getCorrette() + "\n\n";
         else
-            return "Utente: " + aux.getUtente() + "\n" + "Argomento: " + aux.getArgomento() + "Lingua: " + aux.getLingua() + "\n" + "Domande: " + aux.getTotali() + "\n" + "Corrette: " + aux.getCorrette() + "\n\n";
+            return "Utente: " + aux.getUtente() + "\n" + "Argomento: " + aux.getArgomento() + "\n" + "Lingua: " + aux.getLingua() + "\n" + "Domande: " + aux.getTotali() + "\n" + "Corrette: " + aux.getCorrette() + "\n\n";
     }
 
     public void onBackPressed() {

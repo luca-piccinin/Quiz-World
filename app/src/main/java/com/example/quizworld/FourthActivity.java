@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,11 +86,13 @@ public class FourthActivity extends AppCompatActivity {
                         titolo.setText("Ranking");
                         for(int i = 0; i < db.getAllBooks().size(); i++)
                             classifica.setText(classifica.getText() + StampaRisultati(db.getAllBooks(),flag,i));
+                        classifica.setMovementMethod(new ScrollingMovementMethod());
                         Classifica.setText("Return to Hub");
                     } else {
                         titolo.setText("Risultati");
                         for(int i = 0; i < db.getAllBooks().size(); i++)
                             classifica.setText(classifica.getText() + StampaRisultati(db.getAllBooks(),flag,i));
+                        classifica.setMovementMethod(new ScrollingMovementMethod());
                         Classifica.setText("Ritorna alla pagina iniziale");
                     }
                     back = true;
